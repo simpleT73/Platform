@@ -46,11 +46,27 @@ class TransactionDB{
         date: DateTime.parse(record['date'].toString())
       ));
     }
+    db.close();
     return transactions;
   }
   deleteDatabase(int? index) async{
     var db = await this.openDatabase();
     var store = intMapStoreFactory.store('expense');
     await store.delete(db, finder: Finder(filter: Filter.equals(Field.key, index)));
+    // Delete from table... where rowId = index
+    db.close();
+  }
+
+  updateDatabase(Transactions statement) async{
+    var db = await this.openDatabase();
+    var store = intMapStoreFactory.store('expense');
+    var filter = Finder(filter: Filter.equals(Field.key, statement.keyID));
+    var result = store.update(db, finder: filter,  {
+      "title": statement.title,
+      "amount": statement.amount,
+      "date": statement.date.toIso8601String()
+    });
+    db.close();
+    print('update result: $result');
   }
 }
