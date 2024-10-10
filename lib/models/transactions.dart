@@ -1,13 +1,17 @@
 class Transactions {
   int? keyID;
-  final String title;
-  final double amount;
+  final String pName;
+  final String fName;
+  final String pDate;
+  final int userAmount;
   final DateTime date;
 
   Transactions({
     this.keyID,
-    required this.title,
-    required this.amount,
+    required this.pName,
+    required this.fName,
+    required this.pDate,
+    required this.userAmount,
     required this.date,
   });
 }
