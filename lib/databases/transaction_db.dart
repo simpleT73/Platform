@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
@@ -25,8 +26,10 @@ class TransactionDB{
     var store = intMapStoreFactory.store('expense');
 
     var keyID  = store.add(db, {
-      "title": statement.title,
-      "amount": statement.amount,
+      "pName": statement.pName,
+      "fName": statement.fName,
+      "pDate" : statement.pDate,
+      "userAmount": statement.userAmount,
       "date": statement.date.toIso8601String()
     });
     db.close();
@@ -41,8 +44,10 @@ class TransactionDB{
     for (var record in snapshot) {
       transactions.add(Transactions(
         keyID: record.key,
-        title: record['title'].toString(),
-        amount: double.parse(record['amount'].toString()),
+        pName: record['pName'].toString(),
+        fName: record['fName'].toString(),
+        pDate: record['pDate'].toString(),
+        userAmount: int.parse(record['userAmount'].toString()),
         date: DateTime.parse(record['date'].toString())
       ));
     }
@@ -62,8 +67,10 @@ class TransactionDB{
     var store = intMapStoreFactory.store('expense');
     var filter = Finder(filter: Filter.equals(Field.key, statement.keyID));
     var result = store.update(db, finder: filter,  {
-      "title": statement.title,
-      "amount": statement.amount,
+      "pName": statement.pName,
+      "fName": statement.fName,
+      "pDate": statement.pDate,
+      "userAmount": statement.userAmount,
       "date": statement.date.toIso8601String()
     });
     db.close();
