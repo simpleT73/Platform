@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text("รายชื่อ Platform"),
+        title: const Text("รายชื่อ Platform Live stream"),
         actions: [
           IconButton(
             icon: const Icon(Icons.exit_to_app),
