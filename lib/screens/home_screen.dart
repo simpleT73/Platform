@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text("รายชื่อ Platform"),
+        title: const Text("รายชื่อ Platform Live stream"),
         actions: [
           IconButton(
             icon: const Icon(Icons.exit_to_app),
@@ -35,13 +35,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(12.0),
             child: TextField(
               controller: _searchController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: "Search Platform",
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                filled: true,
+                fillColor: Colors.grey[200],
               ),
               onChanged: (value) {
                 setState(() {
@@ -59,7 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 if (filteredTransactions.isEmpty) {
                   return const Center(
-                    child: Text('ไม่มีรายการ'),
+                    child: Text(
+                      'ไม่มีรายการ',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
+                    ),
                   );
                 } else {
                   return ListView.builder(
@@ -68,30 +75,54 @@ class _HomeScreenState extends State<HomeScreen> {
                       var statement = filteredTransactions[index];
                       return Card(
                         elevation: 5,
-                        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         child: ListTile(
-                          title: Text(statement.pName),
+                          title: Text(
+                            statement.pName,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('ชื่อ Platform: ${statement.pName}', style: TextStyle(fontSize: 16)),
-                              Text('ชื่อผู้ก่อตั้ง: ${statement.fName}', style: TextStyle(fontSize: 16)),
-                              Text('วันที่เปิดให้บริการ: ${statement.pDate}', style: TextStyle(fontSize: 16)),
-                              Text('จำนวนผู้ใช้งาน: ${statement.userAmount}', style: TextStyle(fontSize: 16)),
+                              const SizedBox(height: 5),
+                              Text(
+                                'ชื่อ Platform: ${statement.pName}',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                'ชื่อผู้ก่อตั้ง: ${statement.fName}',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                'วันที่เปิดให้บริการ: ${statement.pDate}',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                'จำนวนผู้ใช้งาน: ${statement.userAmount}',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(height: 5),
                               Text(
                                 DateFormat('dd MMM yyyy hh:mm:ss').format(statement.date),
-                                style: TextStyle(fontSize: 14, color: Colors.grey),
+                                style: const TextStyle(fontSize: 14, color: Colors.grey),
                               ),
                             ],
                           ),
                           leading: CircleAvatar(
                             radius: 30,
+                            backgroundColor: Theme.of(context).colorScheme.secondary,
                             child: FittedBox(
-                              child: Text('${statement.pName[0].toUpperCase()}'),
+                              child: Text(
+                                '${statement.pName[0].toUpperCase()}',
+                                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                           trailing: IconButton(
-                            icon: const Icon(Icons.delete),
+                            icon: const Icon(Icons.delete, color: Colors.redAccent),
                             onPressed: () {
                               provider.deleteTransaction(statement.keyID);
                             },

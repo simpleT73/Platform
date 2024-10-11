@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Platform live Stream',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 52, 223, 208)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 103, 58, 183)),
           useMaterial3: true,
         ),
         home: const MyHomePage(),
@@ -65,5 +65,4 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ));
-  }
-}
+  }}
